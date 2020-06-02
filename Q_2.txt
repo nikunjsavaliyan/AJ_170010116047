@@ -1,7 +1,0 @@
-Ans 1
-
-Class.forName("com.mysql.jdbc.Driver");
-
-Ans 2
-
-adit_conn_170010116047 = DriverManager.getConnection("jdbc:mysql://localhost:3306/2160707_170010116047","root","170010116047");
