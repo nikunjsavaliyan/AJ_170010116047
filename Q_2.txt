@@ -41,4 +41,20 @@ Ans 7
                 System.out.println(rs.getFloat("PRICE"));
         }
 
+Ans 8
 
+getXXX( ) methods can access columns by index or name.
+
+Ans 9
+
+False
+
+Ans 10
+
+An "x" indicates that the getXXX method may legally be used to retrieve the given JDBC type.
+An " X " indicates that the getXXX method is recommended for retrieving the given JDBC type.
+
+Ans 11
+
+String nsale = "UPDATE COFFEES SET SALES=150 where COF_NAME='Expresso'";
+int i = st.executeUpdate(nsale);
