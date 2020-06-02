@@ -5,3 +5,40 @@ Class.forName("com.mysql.jdbc.Driver");
 Ans 2
 
 adit_conn_170010116047 = DriverManager.getConnection("jdbc:mysql://localhost:3306/2160707_170010116047","root","170010116047");
+
+Ans 3
+
+Statement adit_conn_dState = adit_conn_170010116047.createStatement();
+
+Ans 4
+
+String query = "create table tbl(RECORD INT, DESCRIPTION VARCHAR(16), QUANTITY INT, PRICE FLOAT)";
+
+adit_conn_dState.execute(query);
+
+Ans 5
+
+String query1,query2,query3,query4;
+     query1 = "insert into tbl values(100,'ball',28,4.99)";
+    query2 = "insert into tbl values(101,'bat',11,15.99)";
+    query3 = "insert into tbl values(102,'stums',22,52.99)";
+    query4 = "insert into tbl values(103,'helmet',11,245.99)";
+    adit_conn_dState.addBatch(query1);
+    adit_conn_dState.addBatch(query2);
+    adit_conn_dState.addBatch(query3);
+    adit_conn_dState.addBatch(query4);
+    int[] i=adit_conn_dState.executeBatch();
+
+Ans 6
+
+String sql = "select PRICE from tbl";
+
+Ans 7
+
+ ResultSet rs;
+        rs = adit_conn_dState.executeQuery(sql);
+        while(rs.next()){
+                System.out.println(rs.getFloat("PRICE"));
+        }
+
+
