@@ -1,0 +1,158 @@
+web.xml Code :-
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>Test</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>First</servlet-name>
+		<servlet-class>com.in.First</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>First</servlet-name>
+		<url-pattern>/Home.jsp</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>Second</filter-name>
+		<filter-class>com.in.Second</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Second</filter-name>
+		<url-pattern>/Second.jsp</url-pattern>
+	</filter-mapping>
+</web-app>
+
+Servlet Code :-
+
+package com.in;
+
+import java.io.*;
+import java.net.http.HttpRequest;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
+
+public class First extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void service(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        PrintWriter out = response.getWriter();
+        HttpSession ss = request.getSession();
+        String uAgent = request.getHeader("User-Agent");
+
+        ss.setAttribute("heder", uAgent);
+
+        if (uAgent.contains("Trident")) {
+            System.out.println("Use internet Explorer");
+            ss.setAttribute("header", "Your browser is Microsoft Internet Explorer");
+        }else {
+            System.out.println("Here");
+            ss.setAttribute("Er", "170010116047 Welcome");
+        }
+        ss.setAttribute("Er", "170010116047");
+        response.sendRedirect("Second.jsp");
+    }
+
+}
+
+
+First.jsp :-
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body></body>
+</html>
+
+
+Second.jsp :-
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body></body>
+</html>
+
+Filter Code:-
+
+package com.in;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+public class Second implements Filter {
+
+    public Second() {
+        
+    }
+
+    public void destroy() {
+        
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        PrintWriter out = response.getWriter();
+        HttpSession ss = req.getSession();
+        String Enrollment = (String) ss.getAttribute("Er");
+        String header = (String) ss.getAttribute("header");
+        StringBuilder inputString = new StringBuilder();
+        inputString.append(Enrollment);
+        StringBuilder Enrollment1 = inputString.reverse();
+        if (header != null) {
+            out.print("You are using Internet Explorer");
+        } else {
+            out.print("Servlet Value: " + Enrollment);
+            out.print("\n");
+            out.print("Filter Value : " + Enrollment1);
+        }
+    }
+
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
+
+}
